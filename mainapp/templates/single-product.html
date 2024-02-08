@@ -1,0 +1,215 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}{{block.super}} | single-product-details{% endblock %}
+
+{% block body %}
+<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Single Product Details</h1>
+					<nav class="d-flex align-items-center">
+						<a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
+						<a href="/shop/None/None/None">Shop<span class="lnr lnr-arrow-right"></span></a>
+						<a href="#">product-details</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+
+	<!--================Single Product Area =================-->
+	<div class="product_image_area">
+		<div class="container">
+			<div class="row s_product_inner">
+				<div class="col-lg-6">
+					<div class="s_Product_carousel">
+						<div class="single-prd-item">
+							{% if Product.pic1 %}
+            				<img
+              					style="width: 200px; height: 200px; border: 1px solid gray"
+              					src="{{Product.pic1.url}}"
+              					alt=""
+            				/>
+            				{% else %}
+            				<img
+              					style="width: 200px; height: 200px; border: 1px solid gray"
+              					src="{% static 'img/noimg/noimage.png' %}"
+              					alt=""
+            				/>
+            				{% endif %}
+						</div>
+						<div class="single-prd-item">
+							{% if Product.pic2 %}
+            				<img
+              					style="width: 200px; height: 200px; border: 1px solid gray"
+              					src="{{Product.pic2.url}}"
+              					alt=""
+            				/>
+            				{% else %}
+            				<img
+              					style="width: 200px; height: 200px; border: 1px solid gray"
+              					src="{% static 'img/noimg/noimage.png' %}"
+              					alt=""
+            				/>
+            				{% endif %}
+						
+						</div>
+						<div class="single-prd-item">
+							{% if Product.pic3 %}
+            				<img
+              					style="width: 200px; height: 200px; border: 1px solid gray"
+              					src="{{Product.pic3.url}}"
+              					alt=""
+            				/>
+            				{% else %}
+            				<img
+              					style="width: 200px; height: 200px; border: 1px solid gray"
+              					src="{% static 'img/noimg/noimage.png' %}"
+              					alt=""
+            				/>
+            				{% endif %}
+						</div>
+						<div class="single-prd-item">
+							{% if Product.pic4 %}
+            				<img
+              					style="width: 200px; height: 200px; border: 1px solid gray"
+              					src="{{Product.pic4.url}}"
+              					alt=""
+            				/>
+            				{% else %}
+            				<img
+              					style="width: 200px; height: 200px; border: 1px solid gray"
+              					src="{% static 'img/noimg/noimage.png' %}"
+              					alt=""
+            				/>
+            				{% endif %}
+						</div>
+						<div class="single-prd-item">
+							{% if Product.pic5 %}
+            				<img
+              					style="width: 200px; height: 200px; border: 1px solid gray"
+              					src="{{Product.pic5.url}}"
+              					alt=""
+            				/>
+            				{% else %}
+            				<img
+              					style="width: 200px; height: 200px; border: 1px solid gray"
+              					src="{% static 'img/noimg/noimage.png' %}"
+              					alt=""
+            				/>
+            				{% endif %}
+						</div>
+					</div>
+				<!--end Product_carousel-->	
+				</div>
+				<!--end col-lg-6-->
+				<div class="col-lg-5 offset-lg-1">
+					<div class="s_product_text">
+						<h4>{{Product.name}}</h4>
+						
+						<h4>Rs:{{Product.finalprice}}</h4>
+
+						<ul class="list">
+							<li><a class="active" href="#"><span>Category</span> : {{Product.subCat.name }}</a></li>
+							{% comment %} <li><a class="active" href="#"><span>Color</span> : {{Product.color }}</a></li> {% endcomment %}
+							<div class="product_count">
+								{% comment %} <li><a class="active" href="#"><span>Size</span> : {{Product.number}}</a></li> {% endcomment %}
+								<li>
+								  <label for="color"><strong><span>Color</span> :</strong></label>
+								  <div class="select-wrapper">
+									<select name="color" id="color" class="input-text qty">
+									  <option value="red">Red</option>
+									  <option value="blue">Blue</option>
+									  <option value="green">Green</option>
+									  <option value="yellow">Yellow</option>
+									  <!-- Add more color options as needed -->
+									</select>
+								  </div>
+								</li>
+							  </div><br>
+							  
+							  
+					<div class="product_count">
+					
+						<label for="qty"><strong><span>Size</span></strong> :</label>
+						
+						<input type="text" name="size" id="sst" maxlength="12" value="1" title="Size:" class="input-text qty">
+						<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+							class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+						<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+							class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+						
+					</div>
+							  
+							{% if Product.stock %}
+							<li><a href="#"><span>Availibility</span> : In Stock</a></li>
+							{% else %}
+							<li><a href="#"><span>Availibility</span> : Out Of Stock</a></li>
+							{% endif %}
+
+						</ul>
+						<p>{{Product.desc}}</p>
+					<form method="POST">
+							{% csrf_token %}
+						<div class="product_count">
+							
+							<label for="qty"><span>Quantity</span> :</label>
+							
+							<input type="text" name="qty" id="sst1" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+							 class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+							 class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+							
+						</div>
+						<div class="card_area d-flex align-items-center">
+							
+							<a href="/cart/"><button class="primary-btn" type="submit">Add to Cart</button></a>
+						
+							<a class="primary-btn" href="/wishlist/{{Product.pid}}/">WishList</a>
+						</div>
+					</form>
+					</div>
+				</div>
+			</div>
+						<!--row s_product_inner-->
+		</div>
+	</div>
+	<!--================End Single Product Area =================-->
+
+	<!--================Product Description Area =================-->
+	<section class="product_description_area">
+		<div class="container">
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+					 aria-selected="false">Specification</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+					 aria-selected="false">Comments</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+					 aria-selected="false">Reviews</a>
+				</li>
+			</ul>
+		<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+					<p>{{Product.desc}}</p>					
+				</div>
+				<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+					<p>{{Product.specification}}</p>					
+				</div>
+		</div>
+	</div>
+
+				
+					<!--================End Product Description Area =================-->
+	{% endblock %}

@@ -1,0 +1,163 @@
+{% extends 'index.html' %} 
+{% load static %}  
+{% block title %}{{block.super}} | Seller Profile
+{% endblock %}
+{% block body %}
+<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Seller Profile</h1>
+                    <h1> {{User.name}}</h1>
+					<nav class="d-flex align-items-center">
+						<a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
+						<a href="/editsellerprofile/">Update Profile</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+<!--================Start Profile Area =================-->	
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Image</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">User Name</th>
+                                <th scope="col">Email</th>
+								<th scope="col">Phone No.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                        {% if User.pic  %}
+                                        
+                                        <img style="width: 200px; height: 200px; border: 1px solid gray"
+                                            src="{{User.pic.url}}" alt="" />
+                                        {% else %}
+                                        
+                                        <img style="width: 200px; height: 200px; border: 1px solid gray"
+                                            src="{% static 'img/noimg/seller.png' %}" alt="" />
+                                        </div>
+                                        {% endif %}
+                                        </div>
+                                        
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>{{User.name}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{User.username}}</h5>
+                                </td>
+								<td>
+                                    <h5>{{User.email}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{User.phone}}</h5>
+                                </td>
+                                <td>
+                                    <a href="/editsellerprofile/"><b>Edit</b></a>
+                                </td>
+                            </tr>                  
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+	<a style="display:block;width:100%;text-align:center;" class="primary-btn" href="/addproduct/">Add Product</a>
+<!--================End Profile Area =================-->
+    <!--================Cart Area =================-->
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Image</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Base Price</th>
+                                <th scope="col">Discount</th>
+                                <th scope="col">Final Price</th>
+                                <th scope="col">Color</th>
+                                <th scope="col">Size</th>
+                                <th scope="col">Stock</th>
+                
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in Product %}
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                        {% if i.pic1 %}
+                                        
+                                        <img style="width: 200px; height: 200px; border: 1px solid gray"
+                                            src="{{i.pic1.url}}" alt="" />
+                                        {% else %}
+                                        
+                                        <img style="width: 200px; height: 200px; border: 1px solid gray"
+                                            src="{% static 'img/noimg/noimage.png' %}" alt="" />
+                                        </div>
+                                        {% endif %}
+                                        
+                                        
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>{{i.name}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{i.baseprice}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{i.discount}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{i.finalprice}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{i.color}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{i.number}}</h5>
+                                </td>
+                                <td>
+                                    {% if i.stock %}
+                                    <h5>In-Stock</h5>
+                                    {% else %}
+                                    <h5>Out-Stock</h5>
+                                    {% endif %}
+                                </td>
+                                
+                                <td>
+                                    <a href="/editproduct/{{i.pid}}"><b>Edit</b></a>
+                                </td>
+                                <td>
+                                
+                                    <a href="/deleteproduct/{{i.pid}}/" id="confirm" onclick="return confirm('Are you sure want to remove this product')" onclick="del()"><b>Delete</b></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Cart Area =================-->
+
+	{% endblock %}

@@ -1,0 +1,126 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load cart %}
+{% block title %}{{block.super}} | Your Orders
+{% endblock %}
+{% block body %}
+	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Your Orders</h1>
+					<nav class="d-flex align-items-center">
+						<a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
+						<a href="/checkout/">Checkout</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+
+	<!--================Order Details Area =================-->
+	<section class="order_details section_gap">
+		<div class="container">
+			<h3 class="title_confirmation">Thank you. Your order has been Placed.</h3>
+			<div class="row order_d_inner">
+				<div class="col-lg-4">
+					<div class="details_item">
+						<h4>Order Info</h4>
+						<ul class="list">
+							<li><a href="#"><span>Order Product</span> : {{i.pic1.url}}</a></li>
+							<li><a href="#"><span>Order number</span> : {{OrderNo}}</a></li>
+							<li><a href="#"><span>Date</span> :{{OrderDate}} </a></li>
+							<li><a href="#"><span>Total</span> :Rs {{Final}}</a></li>
+							<li><a href="#"><span>Payment method</span> : {{check.mode}}</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="details_item">
+						<h4>Billing Address</h4>
+						<ul class="list">
+							<li><a href="#"><span>Name</span> : {{Buyer.name}}</a></li>
+							<li><a href="#"><span>Address1</span> : {{Buyer.address1}} {{Buyer.address2}}</a></li>
+							<li><a href="#"><span>City</span> : {{Buyer.city}}</a></li>
+							<li><a href="#"><span>PINCODE</span> :{{Buyer.pin}} </a></li>
+							<li><a href="#"><span>state </span> : {{Buyer.state}}</a></li>
+						</ul>
+					</div>
+				</div>
+				
+			</div>
+			<div class="order_details_table">
+				<h2>Order Details</h2>
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Product</th>
+								<th scope="col">Quantity</th>
+								<th scope="col">Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for i in Product %}
+							<tr>
+								<td>
+									<p>{{i.name}}</p>
+								</td>
+								<td>
+									<h5>{{request|cartQuantity:i.pid}}</h5>
+								</td>
+								<td>
+									<h5>{{request|cartTotal:i.pid}}</h5>
+								</td>
+							</tr>
+							{% endfor %}
+							<tr>
+								<td>
+									<h4>SubTotal</h4>
+								</td>
+								<td>
+									<h5></h5>
+								</td>
+								<td>
+									<p>Rs:{{Total}}</p>
+								</td>
+							
+							</tr>																					
+							<tr>
+								<td>
+									<h4>Shipping</h4>
+								</td>
+								<td>
+									<h5></h5>
+								</td>
+								<td>
+									{% if Shipping %}
+									<p>Rs:{{Shipping}}</p>
+									{% else %}
+									<p>Free</p>
+									{% endif %}
+								</td>
+							
+							</tr>
+							<tr>
+								<td>
+									<h4>Total</h4>
+								</td>
+								<td>
+									<h5></h5>
+								</td>
+								<td>
+									<p>Rs:{{Final}}</p>
+								</td>
+							
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Order Details Area =================-->
+{% endblock %}

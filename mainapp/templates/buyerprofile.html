@@ -1,0 +1,179 @@
+{% extends 'index.html' %} 
+{% load static %}  
+{% block title %}{{block.super}} | Buyer Profile{% endblock %}
+{% block body %}
+<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Buyer Profile</h1>
+                    <h1> {{User.name}}</h1>
+					<nav class="d-flex align-items-center">
+						<a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
+						<a href="/shop/None/None/None">Shop<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="/checkout/">Checkout</span></a>
+                        <!-- <a href="/shop/">Shop</a> -->
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+<!--================Start Buyer Profile Area =================-->	
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Image</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">User Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Address</th>
+								<th scope="col">Phone No.</th>
+                                <th scope="col">PIN</th>
+                                <th scope="col">City</th>
+                                <th scope="col">State</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                        {% if User.pic %}
+                                        
+                                        <img style="width: 200px; height: 200px; border: 1px solid gray"
+                                            src="{{User.pic.url}}" alt="" />
+                                        {% else %}
+                                        
+                                        <img style="width: 200px; height: 200px; border: 1px solid gray"
+                                            src="{% static 'img/noimg/buyer.png' %}" alt="" />
+                                        </div>
+                                        {% endif %}
+                                        </div>
+                                        
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>{{User.name}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{User.username}}</h5>
+                                </td>
+								<td>
+                                    <h5>{{User.email}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{User.address1}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{User.phone}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{User.pin}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{User.city}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{User.state}}</h5>
+                                </td>
+                                <td>
+                                    <h5><a href="/editbuyerprofile/"><b>Edit</b></a></h5>
+                                </td>
+                            </tr>                  
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+	<a style="display:block;width:100%;text-align:center;" class="primary-btn" href="/wishlist/">Wish List</a>
+<!--================End Buyer Profile Area =================-->
+    <!--================Start WishList Area =================-->
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Image</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Base Price</th>
+                                <th scope="col">Discount</th>
+                                <th scope="col">Final Price</th> 
+                                <th scope="col">Color</th>
+                                <th scope="col">Size</th>
+                                <th scope="col">Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in Product %}
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                        {% if i.product.pic1 %}
+                                        
+                                        <img style="width: 200px; height: 200px; border: 1px solid gray"
+                                            src="{{i.product.pic1.url}}" alt="" />
+                                        {% else %}
+                                        
+                                        <img style="width: 200px; height: 200px; border: 1px solid gray"
+                                            src="{% static 'img/noimg/noimage.png' %}" alt="" />
+                                        </div>
+                                        {% endif %}
+                                        
+                                        
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>{{i.product.name}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{i.product.baseprice}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{i.product.discount}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{i.product.finalprice}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{i.product.color}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{i.product.number}}</h5>
+                                </td>
+                                <td>
+                                    {% if i.product.stock %}
+                                    <h5>In-Stock</h5>
+                                    {% else %}
+                                    <h5>Out-Stock</h5>
+                                    {% endif %}
+                                </td>
+                                
+                                <td>
+                                    <a href="/product/{{i.product.pid}}/"><b>Buy</b></a>
+                                </td>
+                                <td>
+                                
+                                    <a href="/deletewishlist/{{i.wid}}/" id="confirm" onclick="return confirm('Are you sure want to remove this product')" onclick="del()"><b>Delete</b></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End WishList Area =================-->
+
+	{% endblock %}

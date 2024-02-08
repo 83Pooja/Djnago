@@ -1,0 +1,107 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load cart %}
+{% block title %}{{block.super}} | Cart Page{% endblock %}
+{% block body %}
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Shopping Cart</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#">Cart</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Cart Area =================-->
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Image</th>
+                                <th scope="col">Product</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in Product %}
+                            <tr>
+                                <form method="POST">
+                                    {% csrf_token %}
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            {% if i.pic1.url %}
+                                            <a href="/product/{{i.pid}}"><img src="{{i.pic1.url}}" style="width:100px;height:100px" alt=""></a>
+                                          
+                                            {%  else %}
+                                            <a href="/product/{{i.pid}}"><img src="{% static 'img/noimg/noimage.png' %}" style="width:100px;height:100px" alt=""></a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><p>{{i.name}}</p></td>
+                                <td><h5>Rs{{i.finalprice}}</h5></td>
+                                <td>
+                                    <div class="product_count">
+                                        
+                                        
+                                        <input type="number" name="q" value="{{request|cartQuantity:i.pid}}">
+                                        <input type="hidden" name="pid" value="{{i.pid}}">
+                                        
+                                    </div>
+                                </td>
+                                <td><h5>{{request|cartTotal:i.pid}}</h5></td>
+                                <td><a href ="#">Update</a></td>
+                                <td><a href ="/cartdelete/{{i.pid}}">Delete</a></td>
+                            </form>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td></td><td><h5>Shipping</h5></td>
+                                <td>
+                                    {% if Shipping %}
+                                        <h5>Rs{{Shipping}}</h5>
+                                    {% else %}
+                                    <h5>Free</h5>
+                                    {% endif %}
+                                </td>
+                                <td><h5>Sub Total</h5></td>
+                                <td><h5>{{Total}}</h5></td>
+                                <td><h5>Final Total</h5></td>
+                                <td><h5>{{Final}}</h5></td>
+                            </tr>
+                            <tr class="out_button_area">
+                                <td></td><td></td><td></td><td></td>
+                                <td>
+                                <div class ="checkout_btn_inner d-flex align-items-center">
+                                    <a class ='gray_btn' href="/shop/None/None/None/">Continue Shopping</a>
+                                    {% if Final %}
+                                    <a class ="primary-btn" href="/checkout/">Proceed To Checkout</a>
+                                    {% else %}
+                                    <a class ="primary-btn" style="pointer-events:none;" href="/checkout/">Proceed To Checkout</a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Cart Area =================-->
+{% endblock %}

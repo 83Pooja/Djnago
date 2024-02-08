@@ -1,0 +1,106 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}{{block.super}} | Add Product
+{% endblock %}
+{% block body %}
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Edit Product</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="/checkout/">Checkout</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Checkout Area =================-->
+    <section class="checkout_area section_gap">
+        <div class="container">
+            <div class="returning_customer">
+                
+            <div class="billing_details">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3>Product Details</h3>
+                        <form class="row contact_form" action="#" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="productname" name="productname" value={{Product.name}}>
+                                
+                            </div>
+                            <div class="col-md-6 form-group p_star">
+                                <input type="number" class="form-control" id="baseprice" name="baseprice" value={{Product.baseprice}}>
+                                
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <input type="number" class="form-control" id="discount" name="discount" value={{Product.discount}}>
+                                
+                            </div>
+
+                            <div class="col-md-3 form-group p_star">
+                                <select class="country_select" name="mc">                                    
+                                    {% for i in MC %}
+                                    <option value={{i}}>{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group p_star">
+                                <select class="country_select" name="sc">
+                                    
+                                    {% for i in SC %}
+                                    <option value={{i}}>{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group p_star">
+                                <select class="country_select" name="brand">
+                                    
+                                    {% for i in Brand %}
+                                    <option value={{i}}>{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-3 form-group p_star">
+                                <select class="country_select" name="stock">
+                                    <option value="Yes">In-Stock</option>
+                                    <option value="No">Out of Stock</option>
+                                    
+                                </select>
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <textarea class="form-control" name="description" id="description" rows="1">{{Product.desc}}</textarea>                     
+                            </div>
+                            <div class="col-md-12 form-group p_star">     
+                                <textarea class="form-control" name="specification" id="specification" rows="1">{{Product.specification}}</textarea>                    
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="text" id="color" name="color" value="{{Product.color}}">
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="size" name="size" value={{Product.number}}>
+                                
+                            </div>
+                            <input type="file" name="pic1" id="pic1" value={{Product.pic1}}>
+                            <input type="file" name="pic2" id="pic2" value={{Product.pic2}}>
+                            <input type="file" name="pic3" id="pic3" value={{Product.pic3}}>
+                            <input type="file" name="pic4" id="pic4" value={{Product.pic4}}>
+                            <input type="file" name="pic5" id="pic5" value={{Product.pic5}}>
+                            <div class="col-md-12 form-group">
+								<button type="submit" value="Add Product" class="primary-btn">Update Product</button>			
+							</div>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Checkout Area =================-->
+{% endblock %}

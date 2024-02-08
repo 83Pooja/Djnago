@@ -1,0 +1,80 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}{{block.super}} | Forgot Password {% endblock title %}
+{% block body %}
+
+	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Forgot Password</h1>
+					<nav class="d-flex align-items-center">
+					<a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
+					<a href="/shop/None/None/None">Shop </a>
+						
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+
+	<!--================Login Box Area =================-->
+	<section class="login_box_area section_gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<img class="img-fluid" src="{% static 'img/login.jpg' %}" alt="">
+						<div class="hover">
+							<h4>New to our website?</h4>
+							<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
+							<a class="primary-btn" href="{% url 'signup' %}">Create an Account</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="login_form_inner">
+						<h3>Forgot Password</h3>
+						{% for i in messages %}
+						{{i}}
+						{% endfor %}
+						<form class="row login_form" action="" method="post" id="contactForm" novalidate="novalidate">
+							{% csrf_token %}
+
+                            <div class="col-md-12 form-group">
+								<input type="text" class="form-control" placeholder="Username"> 
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="password" class="form-control" placeholder="New password" name="{{ Change.new_password1.name }}" id="{{ Change.new_password1.id_for_label }}" {% if Change.new_password1.required %}required{% endif %} >
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="password" class="form-control" placeholder="Confirm new password" name="{{ Change.new_password2.name }}" id="{{ Change.new_password2.id_for_label }}" {% if Change.new_password2.required %}required{% endif %}>
+							</div>
+							<div class="col-md-12 form-group">
+								{% if Change.new_password2.errors %}
+									{{ Change.new_password2.errors|striptags }}
+								{% endif %}
+							</div>
+		
+							
+							
+								<!-- {% for field in Change %}
+								<input type=" " id="newpassword" name="New Password" value="{{ field }}">
+
+                                {{field.label_tag}}{{field}}{{field.errors|striptags}}
+                                {% endfor %}-->
+						
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="primary-btn">Submit</button>
+								<a href="{% url 'login' %}">Login</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Login Box Area =================-->
+{% endblock %}

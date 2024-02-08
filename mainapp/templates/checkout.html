@@ -1,0 +1,127 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load cart %}
+{% block title %}{{block.super}} | Checkout{% endblock %}
+
+{% block body %}
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Checkout</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="/shop/None/None/None">Shop</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Checkout Area =================-->
+    <section class="checkout_area section_gap">
+        <div class="container">
+            <div class="billing_details">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="login_form_inner">
+                            <h3 style="text-align:center;">User Address</h3>
+                            <form class="row login_form" action="/editbuyerprofile/" method="POST" id="contactForm" novalidate="novalidate" enctype="multipart/form-data">
+                                {% csrf_token %}
+                            
+                                <div class="col-md-12 form-group">
+                                    <textarea placeholder="Enter the name" class="form-control" name="name" id="name" rows="1">{{User.name}}</textarea>
+                                    {% comment %} <p><input type="text" class="form-control" id="name" name="name"  placeholder="Enter name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Name'">{{User.name}}</p> {% endcomment %}
+                                </div>
+                                <div class="col-md-12 form-group p_star">
+                                    <textarea placeholder="Enter the email" class="form-control" name="email" id="email" rows="1">{{User.email}}</textarea>
+                                    {% comment %} <input type="email" class="form-control" id="email" name="email" placeholder="Enter the Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" required> {% endcomment %}
+                                </div>
+                                <div class="col-md-12 form-group p_star">
+                                    <textarea placeholder="Enter the Mobile No." class="form-control" name="phone" id="phone" rows="1">{{User.phone}}</textarea>
+                                    {% comment %} <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter the Mobile No." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mobile'" required> {% endcomment %}
+                                </div>
+                                <div class="col-md-12 form-group p_star">
+                                    <textarea placeholder="Enter the address1" class="form-control" name="add1" id="add1" rows="1">{{User.address1}}</textarea>                     
+                                </div>
+                                <div class="col-md-12 form-group p_star">     
+                                    <textarea placeholder="Enter the address2" class="form-control" name="add2" id="add2" rows="1">{{User.address2}}</textarea>                    
+                                </div>
+                                <div class="col-md-12 form-group p_star">
+                                    <textarea placeholder="Enter the city" class="form-control" name="city" id="city" rows="1">{{User.city}}</textarea>
+                                    {% comment %} <input type="text" class="form-control" id="city" name="city" placeholder="Enter Your City" onfocus="this.placeholder = ''" onblur="this.placeholder = 'city'" required> {% endcomment %}
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <textarea placeholder="Enter the Pincode" class="form-control" name="pin" id="pin" rows="1">{{User.pin}}</textarea>
+                                    {% comment %} <input type="text" class="form-control" id="pin" name="pin" placeholder="Enter Your Pincode" onfocus="this.placeholder = ''" onblur="this.placeholder = 'pincode'" required> {% endcomment %}
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <textarea placeholder="Enter the state" class="form-control" name="state" id="state" rows="1">{{User.state}}</textarea>
+                                    {% comment %} <input type="text" class="form-control" id="state" name="state" placeholder="Enter Your State" onfocus="this.placeholder = ''" onblur="this.placeholder = 'State'" required> {% endcomment %}
+                                </div>
+                                
+                                <div class="col-md-12 form-group">
+                                    <button type="submit" value="submit" class="primary-btn">Update</button>
+                                    
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--check out section-->
+                    <div class="col-lg-6">
+                        <div class="order_box">
+                            <h2>Your Order</h2>
+                            <ul class="list">
+                                <li><a href="#">Product <span>Total</span></a></li>
+                                {% for i in Product %}
+                                <li><a href="#">{{i.name}}&nbsp;({{i.finalprice}}*{{request|cartQuantity:i.pid}}) <span class="last">{{request|cartTotal:i.pid}}</span></a></li>
+                                {% endfor %}
+                            </ul>
+                            <ul class="list list_2">
+                                <li><a href="#">Subtotal <span>{{Total}}</span></a></li>
+                                {% if Shipping %}
+                                <li><a href="#">Shipping <span>{{Shipping}}</span></a></li>
+                                {% else %}
+                                <li><a href="#">Shipping <span>Free</span></a></li>
+                                {% endif %}
+                                <li><a href="#">Total <span>Rs:{{Final}}</span></a></li>
+                            
+                            </ul>
+                            <form method="post">
+                                {% csrf_token %}
+                            <div class="payment_item active">
+                                <div class="radion_btn">
+                                    <input type="radio" id="f-option5" name="mode" value="cod" checked>
+                                    <label for="f-option5">COD</label>
+                                    <div class="check"></div>
+                                </div>
+                                <p>Cash On Delivery</p>
+                            </div>
+                            <div class="payment_item active">
+                                <div class="radion_btn">
+                                    <input type="radio" id="f-option6" name="mode" value="razorpay">
+                                    <label for="f-option6">Razorpay </label>
+                                    <img src="{% static 'img/product/card.jpg' %}" alt="">
+                                    <div class="check"></div>
+                                </div>
+                                <p>Pay via Razorpay; you can pay with your credit card if you don’t have a Razorpay
+                                    account.</p>
+                            </div>
+                            
+                            <!-- <button class="primary-btn" type="submit" style="width:100%;border: none;" >Proceed to Place Order</bytton> -->
+                                <a href="/confirmation/"><button class="primary-btn" style="width:100%;border: none;" type="submit">Proceed to Place Order</button></a>
+                            </form>
+                            
+                        </div> 
+                    </div>
+                    <!--end checkout section-->
+
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    <!--================End Checkout Area =================-->
+{% endblock %}
